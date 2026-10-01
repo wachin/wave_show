@@ -2,6 +2,8 @@
 
 Audio waveform visualizer in terminal (curses) for MP3 and other audio formats. Displays the envelope (min/max amplitude) of audio in real-time, with an interactive cursor to navigate through the track.
 
+![Wave Curses in action](images/wave_show-ezgif.com.gif)
+
 [![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org)
 [![Dependencies](https://img.shields.io/badge/dependencies-ffmpeg%20%26%20curses-green.svg)](https://ffmpeg.org)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%26%20Termux-lightgrey.svg)](https://termux.com)
