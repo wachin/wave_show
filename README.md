@@ -1,32 +1,37 @@
 # Wave Curses 🌊
 
-Visualizador de onda de audio en terminal (curses) para archivos MP3 y otros formatos. Muestra el envelope (min/max amplitude) del audio en tiempo real, con cursor interactivo para navegar por la pista.
+Audio waveform visualizer in terminal (curses) for MP3 and other audio formats. Displays the envelope (min/max amplitude) of audio in real-time, with an interactive cursor to navigate through the track.
 
-## Características
+[![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org)
+[![Dependencies](https://img.shields.io/badge/dependencies-ffmpeg%20%26%20curses-green.svg)](https://ffmpeg.org)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%26%20Termux-lightgrey.svg)](https://termux.com)
+[![License](https://img.shields.io/badge/license-Personal-use-orange.svg)](#license)
 
-- Visualización de forma de onda en terminal (curses)
-- Cálculo de envelope (min/máx por bin) mediante streaming con ffmpeg
-- Cache automática para evitar recálculos (útil para audios largos)
-- Navegación con flechas izquierda/derecha
-- Mostrar tiempo aproximado en la posición del cursor
-- Ajustar sample rate (+/-) para más/menos detalle
-- Compatibles con audios muy largos (horas)
+## Features
 
-## Dependencias
+- Waveform visualization in terminal (curses)
+- Envelope calculation (min/max per bin) via ffmpeg streaming
+- Automatic caching to avoid recomputation (useful for long audio files)
+- Left/right arrow navigation
+- Show approximate time at cursor position
+- Adjustable sample rate (+/-) for more/less detail
+- Compatible with very long audio files (hours)
+
+## Dependencies
 
 - **Python 3** (3.6+)
-- **ffmpeg** (incluye ffprobe)
-- **curses** (biblioteca estándar de Python, pero a veces necesita paquete separado en algunos sistemas)
+- **ffmpeg** (includes ffprobe)
+- **curses** (Python standard library, but may need separate package on some systems)
 
-### Instalación en Termux
+### Installation on Termux
 
 ```bash
-# Actualizar y instalar dependencias
+# Update and install dependencies
 pkg update
 pkg install -y python ffmpeg
 ```
 
-### Instalación en otras distribuciones Linux
+### Installation on Other Linux Distributions
 
 ```bash
 # Debian/Ubuntu
@@ -39,56 +44,56 @@ sudo pacman -S python ffmpeg
 sudo dnf install python3 ffmpeg
 ```
 
-### Verificación
+### Verification
 
 ```bash
-# Verificar que ffmpeg y ffprobe estén disponibles
+# Verify ffmpeg and ffprobe are available
 which ffmpeg ffprobe
 python3 -c "import curses; print('curses OK')"
-``
-
-## Uso
-
-```bash
-python3 wave_curses.py /ruta/al/audio.mp3
 ```
 
-Ejemplo en Termux:
+## Usage
+
 ```bash
-python3 wave_curses.py /sdcard/Music/mi_audio.mp3
+python3 wave_curses.py /path/to/audio.mp3
 ```
 
-## Controles
+Example on Termux:
+```bash
+python3 wave_curses.py /sdcard/Music/my_audio.mp3
+```
 
-| Tecla | Acción |
-|-------|--------|
-| `←` `→` | Mover cursor |
-| `Enter` | Mostrar tiempo aproximado en posición actual |
-| `+` / `=` | Aumentar sample rate (más detalle, más lento) |
-| `-` | Disminuir sample rate (menos detalle, más rápido) |
-| `r` | Forzar recálculo (elimina cache) |
-| `q` | Salir |
+## Controls
 
-## Cómo funciona
+| Key | Action |
+|-----|--------|
+| `←` `→` | Move cursor |
+| `Enter` | Show approximate time at current position |
+| `+` / `=` | Increase sample rate (more detail, slower) |
+| `-` | Decrease sample rate (less detail, faster) |
+| `r` | Force recompute (deletes cache) |
+| `q` | Quit |
 
-1. Usa `ffprobe` para obtener la duración del audio.
-2. Decodifica el audio a PCM mono con `ffmpeg` en streaming.
-3. Calcula el valor min/max de amplitud por cada "bin" (segmento de audio).
-4. Dibuja el envelope en la terminal usando curses.
-5. Guarda un cache `.env_*.json` para no recalcular la próxima vez.
+## How It Works
 
-## Notas
+1. Uses `ffprobe` to get the audio duration.
+2. Decodes audio to PCM mono with `ffmpeg` in streaming mode.
+3. Calculates min/max amplitude per "bin" (audio segment).
+4. Draws the envelope in the terminal using curses.
+5. Saves a cache `.env_*.json` file to avoid recomputing next time.
 
-- La primera ejecución puede tardar unos segundos (o minutos para audios largos) mientras calcula el envelope.
-- Las subsiguientes ejecuciones usan el cache y son casi instantáneas.
-- El sample rate por defecto es 8000 Hz (buen equilibrio velocidad/calidad).
-- Puedes ajustar el sample rate con +/- durante la ejecución.
+## Notes
 
-## Ejemplo de cache
+- First execution may take a few seconds (or minutes for long audio files) while calculating the envelope.
+- Subsequent executions use the cache and are almost instant.
+- Default sample rate is 8000 Hz (good speed/quality balance).
+- You can adjust sample rate with +/- during execution.
 
-Al ejecutar sobre `Jardín de rosas - Rojo.mp3`, se crea el archivo:
+## Cache Example
+
+When running on `Jardín de rosas - Rojo.mp3`, the following file is created:
 `.rosas.mp3.env_8000hz_38bins.json`
 
-## Licencia
+## License
 
-Este proyecto es de uso personal. No garantiza compatibilidad con todos los formatos de audio.
+This project is for personal use. No guarantee of compatibility with all audio formats.
